@@ -33,3 +33,30 @@ export const sendReminderEmail = async ({ to, type, subscription }) => {
     console.log("Email Sent: " + info.response);
   });
 };
+
+export const sendPasswordResetEmail = async ({ to, type, resetUrl }) => {
+  if (!to || !type) throw new Error("Missing Parameters");
+
+  const template = emailTemplates.find((t) => t.label === type);
+
+  if (!template) throw new Error("Invalid mail type");
+
+  const mailInfo = {
+    resetUrl: resetUrl,
+  };
+
+  const message = template.generateBody(mailInfo);
+  const mailOptions = {
+    from: EMAIL,
+    to: to,
+    subject: "Password Reset",
+    html: message,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error)
+      return console.error(error, "Error sending password reset email");
+
+    console.log("Email Sent: " + info.response);
+  });
+};

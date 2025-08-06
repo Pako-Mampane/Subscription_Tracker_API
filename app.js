@@ -29,8 +29,6 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, async () => {
-  console.log(`Sub tracker is running on http://localhost:${PORT}`);
-
   await connectToDatabase();
 });
 
