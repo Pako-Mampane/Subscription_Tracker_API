@@ -25,7 +25,10 @@ app.use("/api/v1/workflows", workflowRouter);
 app.use(errorMiddleware);
 
 app.get("/", (req, res) => {
-  res.send("Welcome to sub tracker api!");
+  res.set("Content-Type", "text/html");
+  res.send(
+    `Welcome to sub tracker api! View the docs at: <a href="https://subtrackerapi.vercel.app/">https://subtrackerapi.vercel.app/</a>`
+  );
 });
 
 app.listen(PORT, async () => {
